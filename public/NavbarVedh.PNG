@@ -1,0 +1,121 @@
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+
+const navItems = ["Home", "Services", "Technologies", "About", "Contact"];
+
+export default function Navbar() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
+  return (
+    <>
+      <AppBar
+        position="fixed"
+        sx={{
+          background: "white",
+          color: "#111",
+          boxShadow: "none",
+          borderBottom: "1px solid #eee",
+        }}
+      >
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          {/* Logo / Name */}
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", letterSpacing: 0.5 }}
+          >
+            Vedhanthi Technologies
+          </Typography>
+
+          {/* Desktop Menu */}
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
+            {navItems.map((item) => (
+              <Button key={item} sx={{ color: "#333", fontSize: 15 }}>
+                {item}
+              </Button>
+            ))}
+          </Box>
+
+          {/* Big Menu Icon */}
+          <IconButton
+            onClick={handleToggle}
+            sx={{ display: { xs: "flex", md: "none" } }}
+          >
+            <MenuIcon sx={{ fontSize: 35, color: "#111" }} />
+          </IconButton>
+
+          {/* Always show menu icon on big screens too, like original website */}
+          <IconButton
+            onClick={handleToggle}
+            sx={{ display: { xs: "none", md: "flex" } }}
+          >
+            <MenuIcon sx={{ fontSize: 35, color: "#111" }} />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      {/* RIGHT SIDE DRAWER */}
+      <Drawer anchor="right" open={open} onClose={handleToggle}>
+        <Box
+          sx={{
+            width: 300,
+            p: 3,
+          }}
+          role="presentation"
+        >
+          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+            Contact Details
+          </Typography>
+
+          <Divider sx={{ mb: 2 }} />
+
+          <List>
+            <ListItem>
+              <ListItemText
+                primary="Phone"
+                secondary="+91 98765 43210"
+              />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText
+                primary="Email"
+                secondary="contact@vedhanthi.com"
+              />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText
+                primary="Address"
+                secondary="Hyderabad, Telangana, India"
+              />
+            </ListItem>
+          </List>
+
+          <Divider sx={{ my: 2 }} />
+
+          <Typography sx={{ fontWeight: "bold", fontSize: 14, mb: 1 }}>
+            Follow Us
+          </Typography>
+          <Typography variant="body2">LinkedIn</Typography>
+          <Typography variant="body2">Instagram</Typography>
+          <Typography variant="body2">Facebook</Typography>
+        </Box>
+      </Drawer>
+    </>
+  );
+}
